@@ -1,12 +1,14 @@
-import glob
+from tqdm import tqdm
 import os
 
 import cv2 as cv
 import numpy as np
 
-from src.utils import loadNP
+from src.utils import loadNP, saveMatrix
 
-PATH_POSES_DEBUG = "rsc/results/debug_directory/poses"
+PATH_POSES_DEBUG = "rsc/results/debug_directory/poses/"
+PATH_MATRIX_INTENSITY = "rsc/results/matrix/cc"
+PATH_SAMPLING_INTENSITY = "rsc/results/sampling/cc"
 
 
 def getGrid(resolution_x, resolution_y):
@@ -47,10 +49,19 @@ def getTR(frame, k, dist, i, path):
         if retval:
             im_with_charuco_board = cv.aruco.drawAxis(frame.copy(), k, dist, rvec, tvec,
                                                       3)  # axis length 100 can be changed according to your requirement
-            #cv.imwrite(path + "/%d.jpg" % i, im_with_charuco_board)
+            # cv.imwrite(path + "/%d.jpg" % i, im_with_charuco_board)
             return [rvec, tvec]
 
     return []
+
+
+def getImageIntensity(intensity_matrix, row, column):
+    intensity_matrix = intensity_matrix.reshape((row, column))
+    img = np.zeros((row, column), np.uint8)
+    for i in range(row):
+        for j in range(column):
+            img[i, j] = intensity_matrix[i, j]
+    return img
 
 
 def calculateIntensityMatrix(frame, rotation_vector, translation_vector, grid, k):
@@ -75,13 +86,17 @@ def getIntensityMatrix(path, x_resolution, y_resolution):
 
     # get coordinate
     obj_grid = getObjPoints(x_resolution, y_resolution)
-    sampling_intensity = []
 
-    for i in range(len(os.listdir(path))):
+    for i in tqdm(range(len(os.listdir(path))), desc="Sampling Intensity"):
+        i_m = []
         frame = cv.imread(path + "/%d.jpg" % i)
         tr = getTR(frame, k, dist, i, path=PATH_POSES_DEBUG + '/' + os.path.basename(path))
 
         if len(tr) >= 0:
             i_m = calculateIntensityMatrix(frame, tr[0], tr[1], obj_grid, k)
-            cv.imshow("sampling", np.reshape(i_m, (y_resolution, x_resolution)))
-            cv.waitKey(1000)
+
+        # save results
+        cv.imwrite(PATH_SAMPLING_INTENSITY + "/%d.jpg" % i, getImageIntensity(i_m, x_resolution, y_resolution))
+        saveMatrix(PATH_MATRIX_INTENSITY, i_m, i)
+
+    return PATH_MATRIX_INTENSITY

@@ -1,5 +1,6 @@
 import os
 
+from src.LightDirection import getLightDirectionMatrix
 from src.SamplingIntensity import getIntensityMatrix
 from src.Calibration import undistortedVideo
 from src.utils import resetResults, getFileNameFromPath
@@ -23,4 +24,5 @@ if __name__ == '__main__':
     resetResults()
     # u_path_frames_cc = getUndistortedFramesVideo(path_video=PATH_CENTER_CAMERA, is_approximate=False)
     # u_path_frames_lc = getUndistortedFramesVideo(path_video=PATH_ILLUMINATION_CAMERA, is_approximate=True)
-    getIntensityMatrix("rsc/results/undistorted_frames/cc1", x_resolution=X_RES, y_resolution=Y_RES)
+    # path_im_cc = getIntensityMatrix("rsc/results/undistorted_frames/cc", x_resolution=X_RES, y_resolution=Y_RES)
+    path_idm_lc = getLightDirectionMatrix("rsc/results/undistorted_frames/lc", x_resolution=X_RES, y_resolution=Y_RES)

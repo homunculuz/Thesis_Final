@@ -27,10 +27,9 @@ def getFileNameFromPath(path):
     return os.path.basename(path)[:-4]
 
 
-def saveMatrix(list_matrix, path):
+def saveMatrix(path, matrix, i):
     p = path + '/%d.npy'
-    for i, l in enumerate(list_matrix):
-        saveNP(l, p % i)
+    saveNP(matrix, p % i)
 
 
 def loadMatrix(path):
