@@ -7,11 +7,25 @@ import numpy as np
 
 
 def resetResults():
-    # removeDirectory("rsc/results/undistorted_frames")
-    # os.mkdir("rsc/results/undistorted_frames")
-    removeDirectory("rsc/results/debug_directory/poses")
-    os.mkdir("rsc/results/debug_directory/poses")
+    # reset undistorted_frames
+    removeDirectory("rsc/results/undistorted_frames")
+    os.mkdir("rsc/results/undistorted_frames")
+    os.mkdir("rsc/results/undistorted_frames/cc")
+    os.mkdir("rsc/results/undistorted_frames/lc")
 
+    # reset sampling
+    removeDirectory("rsc/results/sampling")
+    os.mkdir("rsc/results/sampling")
+    os.mkdir("rsc/results/sampling/cc")
+    os.mkdir("rsc/results/sampling/lc")
+
+    # reset matrix
+    removeDirectory("rsc/results/matrix")
+    os.mkdir("rsc/results/matrix")
+    os.mkdir("rsc/results/matrix/cc")
+    os.mkdir("rsc/results/matrix/lc")
+
+    # reset debug_directory/poses
 
 def removeDirectory(path):
     shutil.rmtree(path)

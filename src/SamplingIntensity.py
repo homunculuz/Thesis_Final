@@ -6,7 +6,7 @@ import numpy as np
 
 from src.utils import loadNP, saveMatrix
 
-PATH_POSES_DEBUG = "rsc/results/debug_directory/poses/"
+PATH_POSES_DEBUG = "rsc/results/debug_directory/poses/cc"
 PATH_MATRIX_INTENSITY = "rsc/results/matrix/cc"
 PATH_SAMPLING_INTENSITY = "rsc/results/sampling/cc"
 
@@ -49,7 +49,7 @@ def getTR(frame, k, dist, i, path):
         if retval:
             im_with_charuco_board = cv.aruco.drawAxis(frame.copy(), k, dist, rvec, tvec,
                                                       3)  # axis length 100 can be changed according to your requirement
-            # cv.imwrite(path + "/%d.jpg" % i, im_with_charuco_board)
+            cv.imwrite(path + "/%d.jpg" % i, im_with_charuco_board)
             return [rvec, tvec]
 
     return []
@@ -77,20 +77,15 @@ def calculateIntensityMatrix(frame, rotation_vector, translation_vector, grid, k
     return intensity_matrix
 
 
-def getIntensityMatrix(path, x_resolution, y_resolution):
+def getIntensityMatrix(path, obj_grid, x_resolution, y_resolution):
     # load parameters of the calibration
-    k = loadNP("rsc/results/parameters/intrinsic_matrix.npy")
-    dist = loadNP("rsc/results/parameters/parameters_distortion.npy")
-
-    os.mkdir(PATH_POSES_DEBUG + '/' + os.path.basename(path))
-
-    # get coordinate
-    obj_grid = getObjPoints(x_resolution, y_resolution)
+    k = loadNP("rsc/results/parameters/cc/intrinsic_matrix.npy")
+    dist = loadNP("rsc/results/parameters/cc/parameters_distortion.npy")
 
     for i in tqdm(range(len(os.listdir(path))), desc="Sampling Intensity"):
         i_m = []
         frame = cv.imread(path + "/%d.jpg" % i)
-        tr = getTR(frame, k, dist, i, path=PATH_POSES_DEBUG + '/' + os.path.basename(path))
+        tr = getTR(frame, k, dist, i, path=PATH_POSES_DEBUG)
 
         if len(tr) >= 0:
             i_m = calculateIntensityMatrix(frame, tr[0], tr[1], obj_grid, k)

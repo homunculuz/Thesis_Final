@@ -9,11 +9,11 @@ PATH_UNDISTORTED_VIDEO = "rsc/results/undistorted_frames/"
 PATH_PARAMETERS_CALIBRATION = "rsc/results/parameters/"
 
 # parameters for calibration of the intensity_matrix
-PATH_INTRINSIC_MATRIX = PATH_PARAMETERS_CALIBRATION + "intrinsic_matrix.npy"
-PATH_DISTORTED_PAR = PATH_PARAMETERS_CALIBRATION + "parameters_distortion.npy"
+PATH_INTRINSIC_MATRIX = "rsc/results/parameters/lc/intrinsic_matrix.npy"
+PATH_DISTORTED_PAR = "rsc/results/parameters/lc/parameters_distortion.npy"
 
-PATH_APPROXIMATED_INTRINSIC_MATRIX = "rsc/results/parameters/approximated_intrinsic_matrix.npy"
-PATH_APPROXIMATED_DISTORTED_PAR = "rsc/results/parameters/approximated_parameters_distortion.npy"
+PATH_APPROXIMATED_INTRINSIC_MATRIX = "rsc/results/parameters/intrinsic_matrix.npy"
+PATH_APPROXIMATED_DISTORTED_PAR = "rsc/results/parameters/parameters_distortion.npy"
 
 # DIM of black corners in the cheeseboard
 X = 9
@@ -48,11 +48,8 @@ def undistortedVideo(path_video, is_approximate=True, skip=50, show_frames=False
     # width, height and the intensity per seconds of video
     w = int(cap.get(cv.CAP_PROP_FRAME_WIDTH))
     h = int(cap.get(cv.CAP_PROP_FRAME_HEIGHT))
-
     # Set up output video
-    path = PATH_UNDISTORTED_VIDEO + os.path.basename(path_video)[:-4]
-    # create directory
-    os.mkdir(path)
+    path = PATH_UNDISTORTED_VIDEO + os.path.basename(path_video)[:-5]
     undistorted_frames_path = path + '/%d.jpg'
 
     i = 0
