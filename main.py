@@ -29,7 +29,8 @@ if __name__ == '__main__':
 
     # create object-points mash grid
     obj_grid = getObjPoints(X_RES, Y_RES)
-    # path_im_cc = getIntensityMatrix("rsc/results/undistorted_frames/cc", obj_grid, x_resolution=X_RES,y_resolution=Y_RES)
+    # path_im_cc = getIntensityMatrix("rsc/results/undistorted_frames/cc", obj_grid, x_resolution=X_RES,
+    # y_resolution=Y_RES)
 
     path_idm_lc = getLightDirectionMatrix("rsc/results/undistorted_frames/lc", obj_grid, x_resolution=X_RES,
                                           y_resolution=Y_RES)

@@ -56,24 +56,16 @@ def getTR(frame, k, dist, i, path):
 
 
 def getImageIntensity(intensity_matrix, row, column):
-    intensity_matrix = intensity_matrix.reshape((row, column))
-    img = np.zeros((row, column), np.uint8)
-    for i in range(row):
-        for j in range(column):
-            img[i, j] = intensity_matrix[i, j]
+    img = intensity_matrix.reshape((row, column))
     return img
 
 
 def calculateIntensityMatrix(frame, rotation_vector, translation_vector, grid, k):
-    n = grid.shape[1]
-    intensity_matrix = np.zeros((1, n))
     p = (k @ (cv.Rodrigues(rotation_vector)[0] @ grid + translation_vector))
     p = p / p[2, :]
     # remove z coordinates and transformation
-    p = np.delete(p, 2, 0).astype(int)
-    for i in range(n):
-        x, y = p[:, i]
-        intensity_matrix[:, i] = frame[y, x][0]
+    p = np.delete(p, 2, 0).astype(np.int32)
+    intensity_matrix = frame[p[1, :].tolist(), p[0, :].tolist()]
     return intensity_matrix
 
 
@@ -85,9 +77,10 @@ def getIntensityMatrix(path, obj_grid, x_resolution, y_resolution):
     for i in tqdm(range(len(os.listdir(path))), desc="Sampling Intensity"):
         i_m = []
         frame = cv.imread(path + "/%d.jpg" % i)
+        frame = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
         tr = getTR(frame, k, dist, i, path=PATH_POSES_DEBUG)
 
-        if len(tr) >= 0:
+        if len(tr) > 0:
             i_m = calculateIntensityMatrix(frame, tr[0], tr[1], obj_grid, k)
 
         # save results
