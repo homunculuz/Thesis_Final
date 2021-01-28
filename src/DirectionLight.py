@@ -15,14 +15,14 @@ def calculateLightDirectionMatrix(rotation, translation, obj_grid):
     ld_m = ((-rotation_matrix_t) @ translation) - obj_grid
     # normalized columns of matrix
     sum_column = ld_m.sum(axis=0)
-    ld_normalized_m = np.delete(ld_m, 1, 0) / np.vstack((sum_column, sum_column))
+    ld_normalized_m = np.delete(ld_m, 2, 0) / sum_column
     return ld_normalized_m
 
 
 def getLightDirection(matrix, n=200):
     img = np.zeros((n, n), np.uint8)
     # draw localize
-    val = round(100 / 2)
+    val = round(n / 2)
 
     # unit circle with axis
     cv.circle(img, (val, val), val, 255, 1)

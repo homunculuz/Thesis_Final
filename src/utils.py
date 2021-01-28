@@ -6,8 +6,7 @@ import cv2 as cv
 import numpy as np
 
 
-def resetResults(reset_frames=False):
-
+def resetResults(reset_frames):
     if reset_frames:
         # reset undistorted_frames
         removeDirectory("rsc/results/undistorted_frames")
@@ -32,6 +31,7 @@ def resetResults(reset_frames=False):
     os.mkdir("rsc/results/debug_directory/poses")
     os.mkdir("rsc/results/debug_directory/poses/cc")
     os.mkdir("rsc/results/debug_directory/poses/lc")
+
 
 def removeDirectory(path):
     shutil.rmtree(path)

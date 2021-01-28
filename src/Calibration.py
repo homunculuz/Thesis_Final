@@ -35,25 +35,34 @@ def displayPoints(img, corners, ret, dim: tuple = (X, Y)):
     cv.waitKey(500)
 
 
-def undistortedVideo(path_video, is_approximate=True, skip=50, show_frames=False):
+def undistortedVideo(path_video, is_approximate=True, shift=0, skip=50, show_frames=False):
     # calculate intrinsic parameters
     if is_approximate:
         k, dist = approximatedCalibration(path_video)
     else:
         k, dist = calibrationFromChessboard()
 
+    print(shift)
     # open video
     cap = cv.VideoCapture(path_video)
 
     # width, height and the intensity per seconds of video
-    w = int(cap.get(cv.CAP_PROP_FRAME_WIDTH))
-    h = int(cap.get(cv.CAP_PROP_FRAME_HEIGHT))
+    w = round(cap.get(cv.CAP_PROP_FRAME_WIDTH))
+    h = round(cap.get(cv.CAP_PROP_FRAME_HEIGHT))
+    fps = round(cap.get(cv.CAP_PROP_FPS))
     # Set up output video
     path = PATH_UNDISTORTED_VIDEO + os.path.basename(path_video)[:-5]
     undistorted_frames_path = path + '/%d.jpg'
-
     i = 0
     count = -1
+
+    shift_count = round(shift) * fps
+
+    print("fps: ", fps, shift_count)
+
+    while shift_count > 0:
+        _, _ = cap.read()
+        shift_count = shift_count - 1
 
     while True:
         count = count + 1
