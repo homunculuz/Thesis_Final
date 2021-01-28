@@ -20,13 +20,16 @@ def getUndistortedFramesVideo(path_video, is_approximate, num_skip=50):
 
 
 if __name__ == '__main__':
-    #print(callSynchronization(PATH_CENTER_CAMERA, PATH_ILLUMINATION_CAMERA))
     resetResults()
-    # get coordinate
-    u_path_frames_cc = getUndistortedFramesVideo(path_video=PATH_CENTER_CAMERA, is_approximate=False, num_skip=10)
-    u_path_frames_lc = getUndistortedFramesVideo(path_video=PATH_ILLUMINATION_CAMERA, is_approximate=True, num_skip=10)
+    # print(callSynchronization(PATH_CENTER_CAMERA, PATH_ILLUMINATION_CAMERA))
+
+    # get synchronized frames
+    # u_path_frames_cc = getUndistortedFramesVideo(path_video=PATH_CENTER_CAMERA, is_approximate=False, num_skip=10)
+    # u_path_frames_lc = getUndistortedFramesVideo(path_video=PATH_ILLUMINATION_CAMERA, is_approximate=True, num_skip=10)
+
+    # create object-points mash grid
     obj_grid = getObjPoints(X_RES, Y_RES)
-    path_im_cc = getIntensityMatrix("rsc/results/undistorted_frames/cc", obj_grid, x_resolution=X_RES,y_resolution=Y_RES)
+    # path_im_cc = getIntensityMatrix("rsc/results/undistorted_frames/cc", obj_grid, x_resolution=X_RES,y_resolution=Y_RES)
 
     path_idm_lc = getLightDirectionMatrix("rsc/results/undistorted_frames/lc", obj_grid, x_resolution=X_RES,
                                           y_resolution=Y_RES)

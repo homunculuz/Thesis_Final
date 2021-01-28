@@ -4,6 +4,7 @@ from tqdm import tqdm
 import cv2 as cv
 from src.SamplingIntensity import getTR
 from src.utils import loadNP, saveMatrix
+from sklearn.preprocessing import normalize
 
 PATH_POSES_DEBUG = "rsc/results/debug_directory/poses/lc"
 PATH_LIGHT_DIRECTION = "rsc/results/sampling/lc"
@@ -13,11 +14,11 @@ PATH_MATRIX_LIGHT_DIRECTION = "rsc/results/matrix/lc"
 def calculateLightDirectionMatrix(rotation, translation, obj_grid):
     n = obj_grid.shape[1]
     ld_m = np.zeros((3, n))
-    rotation_matrix_t = cv.Rodrigues(rotation)[0]
-    ld_m = -rotation_matrix_t @ translation - obj_grid
-    ld_m = np.delete(ld_m, 2, 0)
-    ld_m = ld_m / np.linalg.norm(ld_m, axis=-1)[:, np.newaxis]
-    return ld_m
+    rotation_matrix_t = cv.Rodrigues(rotation)[0].transpose()
+    ld_m = (-rotation_matrix_t) @ translation - obj_grid
+    # normalized rows matrix
+    ld_normalized_m = np.delete(ld_m, 1, 0) / ld_m.sum(axis=0)
+    return ld_normalized_m
 
 
 def getLightDirection(matrix, n=200):
@@ -31,7 +32,7 @@ def getLightDirection(matrix, n=200):
     cv.line(img, (val, 0), (val, 2 * val), 255, 1)
 
     if len(matrix) > 0:
-        matrix = matrix * 100 + val / 2
+        matrix = val + matrix
         # project all x,y coordinates of illumination direction in the 2D plane
         for i in range(matrix.shape[1]):
             x, y = matrix[:, i]

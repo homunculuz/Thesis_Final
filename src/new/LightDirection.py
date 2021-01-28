@@ -48,6 +48,7 @@ class CharucoLightDirectionMatrix:
         rotation_matrix_t = cv.Rodrigues(rotation_vector)[0].transpose()
         ld_m = -rotation_matrix_t @ translation_vector - self.obj_grid
         ld_m = np.delete(ld_m, 2, 0)
+        print(ld_m)
         ld_m = ld_m / np.linalg.norm(ld_m, axis=-1)[:, np.newaxis]
         return ld_m
 
