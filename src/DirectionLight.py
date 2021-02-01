@@ -14,8 +14,9 @@ def calculateLightDirectionMatrix(rotation, translation, obj_grid):
     rotation_matrix_t = cv.Rodrigues(rotation)[0].transpose()
     ld_m = ((-rotation_matrix_t) @ translation) - obj_grid
     # normalized columns of matrix
-    sum_column = ld_m.sum(axis=0)
+    sum_column = np.sqrt((ld_m**2).sum(axis=0))
     ld_normalized_m = np.delete(ld_m, 2, 0) / sum_column
+
     return ld_normalized_m
 
 
@@ -30,9 +31,15 @@ def getLightDirection(matrix, n=200):
     cv.line(img, (val, 0), (val, 2 * val), 255, 1)
 
     matrix = val + matrix * 100
+
     # project all x,y coordinates of illumination direction in the 2D plane
-    matrix = matrix.astype(np.int32)
-    img[matrix[1, :].tolist(), matrix[0, :].tolist()] = 255
+    matrix = matrix.astype(int)
+
+    try:
+        img[matrix[1, :].tolist(), matrix[0, :].tolist()] = 255
+    except:
+        img = img
+
     return img
 
 
