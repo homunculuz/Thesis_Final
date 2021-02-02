@@ -10,27 +10,29 @@ def resetResults(reset_frames):
     if reset_frames:
         # reset undistorted_frames
         removeDirectory("rsc/results/undistorted_frames")
-        os.mkdir("rsc/results/undistorted_frames")
-        os.mkdir("rsc/results/undistorted_frames/cc")
-        os.mkdir("rsc/results/undistorted_frames/lc")
+        createDirectoryStructure("undistorted_frames")
+
+        # reset parameters
+        removeDirectory("rsc/results/parameters")
+        createDirectoryStructure("parameters")
 
     # reset sampling
     removeDirectory("rsc/results/sampling")
-    os.mkdir("rsc/results/sampling")
-    os.mkdir("rsc/results/sampling/cc")
-    os.mkdir("rsc/results/sampling/lc")
+    createDirectoryStructure("sampling")
 
     # reset matrix
     removeDirectory("rsc/results/matrix")
-    os.mkdir("rsc/results/matrix")
-    os.mkdir("rsc/results/matrix/cc")
-    os.mkdir("rsc/results/matrix/lc")
+    createDirectoryStructure("matrix")
 
     # reset debug_directory/poses
     removeDirectory("rsc/results/debug_directory/poses")
-    os.mkdir("rsc/results/debug_directory/poses")
-    os.mkdir("rsc/results/debug_directory/poses/cc")
-    os.mkdir("rsc/results/debug_directory/poses/lc")
+    createDirectoryStructure("debug_directory/poses")
+
+
+def createDirectoryStructure(name):
+    os.mkdir("rsc/results/" + name)
+    os.mkdir("rsc/results/" + name + "/cc")
+    os.mkdir("rsc/results/" + name + "/lc")
 
 
 def removeDirectory(path):

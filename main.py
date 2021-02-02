@@ -33,14 +33,15 @@ def getSynchroShift():
 
 
 if __name__ == '__main__':
-    resetResults(reset_frames=False)
-    # shift_1, shift_2 = getSynchroShift()
+    resetResults(reset_frames=True)
+    exit(1)
+    shift_1, shift_2 = 0, 0  # getSynchroShift()
 
     # get synchronized frames
-    # u_path_frames_cc = getUndistortedFramesVideo(path_video=PATH_CENTER_CAMERA, is_approximate=False, shift=shift_1,
-    # num_skip=10)
-    # u_path_frames_lc = getUndistortedFramesVideo(path_video=PATH_ILLUMINATION_CAMERA, is_approximate=True,
-    # shift=shift_2, num_skip=10)
+    u_path_frames_cc = getUndistortedFramesVideo(path_video=PATH_CENTER_CAMERA, is_approximate=False, shift=shift_1,
+                                                 num_skip=10)
+    u_path_frames_lc = getUndistortedFramesVideo(path_video=PATH_ILLUMINATION_CAMERA, is_approximate=True,
+                                                 shift=shift_2, num_skip=10)
 
     # create object-points mash grid
     obj_grid = getObjPoints(X_RES, Y_RES)
@@ -49,3 +50,6 @@ if __name__ == '__main__':
 
     path_idm_lc = getLightDirectionMatrix("rsc/results/undistorted_frames/lc", obj_grid, x_resolution=X_RES,
                                           y_resolution=Y_RES)
+
+# TODO: syncronization
+# TODO: intensity/gradient sampling

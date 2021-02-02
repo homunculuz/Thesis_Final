@@ -8,13 +8,6 @@ PATH_CALIBRATION_VIDEO = "rsc/calibration_videos/"
 PATH_UNDISTORTED_VIDEO = "rsc/results/undistorted_frames/"
 PATH_PARAMETERS_CALIBRATION = "rsc/results/parameters/"
 
-# parameters for calibration of the intensity_matrix
-PATH_INTRINSIC_MATRIX = "rsc/results/parameters/lc/intrinsic_matrix.npy"
-PATH_DISTORTED_PAR = "rsc/results/parameters/lc/parameters_distortion.npy"
-
-PATH_APPROXIMATED_INTRINSIC_MATRIX = "rsc/results/parameters/intrinsic_matrix.npy"
-PATH_APPROXIMATED_DISTORTED_PAR = "rsc/results/parameters/parameters_distortion.npy"
-
 # DIM of black corners in the cheeseboard
 X = 9
 Y = 6
@@ -35,14 +28,13 @@ def displayPoints(img, corners, ret, dim: tuple = (X, Y)):
     cv.waitKey(500)
 
 
-def undistortedVideo(path_video, is_approximate=True, shift=0, skip=50, show_frames=False):
+def undistortedVideo(path_video, is_approximate, shift=0, skip=10, show_frames=False):
     # calculate intrinsic parameters
     if is_approximate:
         k, dist = approximatedCalibration(path_video)
     else:
-        k, dist = calibrationFromChessboard()
+        k, dist = calibrationFromChessboard(path_video)
 
-    print(shift)
     # open video
     cap = cv.VideoCapture(path_video)
 
@@ -50,6 +42,7 @@ def undistortedVideo(path_video, is_approximate=True, shift=0, skip=50, show_fra
     w = round(cap.get(cv.CAP_PROP_FRAME_WIDTH))
     h = round(cap.get(cv.CAP_PROP_FRAME_HEIGHT))
     fps = round(cap.get(cv.CAP_PROP_FPS))
+
     # Set up output video
     path = PATH_UNDISTORTED_VIDEO + os.path.basename(path_video)[:-5]
     undistorted_frames_path = path + '/%d.jpg'
@@ -58,7 +51,7 @@ def undistortedVideo(path_video, is_approximate=True, shift=0, skip=50, show_fra
 
     shift_count = round(shift) * fps
 
-    print("fps: ", fps, shift_count)
+    print("fps: ", fps, " frames to shift: ", shift_count)
 
     while shift_count > 0:
         _, _ = cap.read()
@@ -94,8 +87,8 @@ def undistortedVideo(path_video, is_approximate=True, shift=0, skip=50, show_fra
     return path
 
 
-def calibration(is_display=False):
-    print("Getting calibration....")
+def calibration(path_intrinsic_matrix, path_distorted_matrix, is_display=False, skip=20):
+    print("Calibration with skip: ", skip)
     # termination criteria
     criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 
@@ -115,11 +108,18 @@ def calibration(is_display=False):
     w = int(cap.get(cv.CAP_PROP_FRAME_WIDTH))
     h = int(cap.get(cv.CAP_PROP_FRAME_HEIGHT))
 
+    count = 0
+
     while True:
         ret, frame = cap.read()
 
         if not ret:
             break
+
+        count = count + 1
+
+        if not count % skip == 0:
+            continue
 
         frame_gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
         # Find the chess board corners
@@ -140,19 +140,22 @@ def calibration(is_display=False):
     ret, k, dist, r, t = cv.calibrateCamera(obj_points, img_points, (w, h), None, None)
 
     # save the computation
-    saveNP(k, PATH_INTRINSIC_MATRIX)
-    saveNP(dist, PATH_DISTORTED_PAR)
+    saveNP(k, path_intrinsic_matrix)
+    saveNP(dist, path_distorted_matrix)
 
     return k, dist, r, t, img_points, obj_points
 
 
-def calibrationFromChessboard():
-    if not (os.path.isfile(PATH_INTRINSIC_MATRIX) and os.path.isfile(PATH_DISTORTED_PAR)):
-        calibration()
+def calibrationFromChessboard(path):
+    path_intrinsic_matrix = PATH_PARAMETERS_CALIBRATION + os.path.basename(path)[0:2] + "/intrinsic_matrix.npy"
+    path_distorted_matrix = PATH_PARAMETERS_CALIBRATION + os.path.basename(path)[0:2] + "/parameters_distortion.npy"
+
+    if not (os.path.isfile(path_intrinsic_matrix) and os.path.isfile(path_distorted_matrix)):
+        calibration(path_intrinsic_matrix, path_distorted_matrix)
 
     # load the saved the intrinsic parameters
-    k = loadNP(PATH_INTRINSIC_MATRIX)
-    dist = loadNP(PATH_DISTORTED_PAR)
+    k = loadNP(path_intrinsic_matrix)
+    dist = loadNP(path_distorted_matrix)
 
     return k, dist
 
@@ -167,7 +170,10 @@ def approximatedCalibration(path):
     k = [[w, 0, w / 2], [0, w, h / 2], [0, 0, 1]]
     dist = np.zeros((4, 1))  # Assuming no lens distortion
 
-    saveNP(k, PATH_APPROXIMATED_INTRINSIC_MATRIX)
-    saveNP(dist, PATH_APPROXIMATED_DISTORTED_PAR)
+    path_intrinsic_matrix = PATH_PARAMETERS_CALIBRATION + os.path.basename(path)[0:2] + "/intrinsic_matrix.npy"
+    path_distorted_matrix = PATH_PARAMETERS_CALIBRATION + os.path.basename(path)[0:2] + "/parameters_distortion.npy"
+
+    saveNP(k, path_intrinsic_matrix)
+    saveNP(dist, path_distorted_matrix)
 
     return np.array(k), np.array(dist)

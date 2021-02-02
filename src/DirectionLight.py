@@ -31,15 +31,9 @@ def getLightDirection(matrix, n=200):
     cv.line(img, (val, 0), (val, 2 * val), 255, 1)
 
     matrix = val + matrix * 100
-
     # project all x,y coordinates of illumination direction in the 2D plane
     matrix = matrix.astype(int)
-
-    try:
-        img[matrix[1, :].tolist(), matrix[0, :].tolist()] = 255
-    except:
-        img = img
-
+    img[matrix[1, :].tolist(), matrix[0, :].tolist()] = 255
     return img
 
 
