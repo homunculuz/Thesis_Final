@@ -88,7 +88,7 @@ def undistortedVideo(path_video, is_approximate, shift=0, skip=10, show_frames=F
 
 
 def calibration(path_intrinsic_matrix, path_distorted_matrix, is_display=False, skip=20):
-    print("Calibration with skip: ", skip)
+    # print("Calibration with skip: ", skip)
     # termination criteria
     criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 

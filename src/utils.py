@@ -4,7 +4,7 @@ import sys
 import os
 import cv2 as cv
 import numpy as np
-
+from tqdm import tqdm
 
 def resetResults(reset_frames):
     if reset_frames:
@@ -19,6 +19,8 @@ def resetResults(reset_frames):
     # reset sampling
     removeDirectory("rsc/results/sampling")
     createDirectoryStructure("sampling")
+    os.mkdir("rsc/results/sampling" + "/cc_lc")
+
 
     # reset matrix
     removeDirectory("rsc/results/matrix")
@@ -54,9 +56,9 @@ def saveMatrix(path, matrix, i):
     saveNP(matrix, p % i)
 
 
-def loadMatrix(path):
+def loadMatrix(path,label):
     list_matrix = []
-    for i in range(len(os.listdir(path))):
+    for i in tqdm(range(len(os.listdir(path))), desc=label):
         matrix_path = (path + "/%d.npy") % i
         list_matrix.append(loadNP(matrix_path))
     return list_matrix

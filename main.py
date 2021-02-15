@@ -1,4 +1,5 @@
 from src.DirectionLight import getLightDirectionMatrix
+from src.ProjectIntenisityDirection import samplingPlotCCLC
 from src.SamplingIntensity import getIntensityMatrix, getObjPoints
 from src.Calibration import undistortedVideo
 from src.Synchronize import callSynchronization
@@ -34,8 +35,8 @@ def getSynchroShift():
 
 if __name__ == '__main__':
     resetResults(reset_frames=True)
-    exit(1)
-    shift_1, shift_2 = 0, 0  # getSynchroShift()
+
+    shift_1, shift_2 = getSynchroShift()
 
     # get synchronized frames
     u_path_frames_cc = getUndistortedFramesVideo(path_video=PATH_CENTER_CAMERA, is_approximate=False, shift=shift_1,
@@ -45,11 +46,11 @@ if __name__ == '__main__':
 
     # create object-points mash grid
     obj_grid = getObjPoints(X_RES, Y_RES)
+
     path_im_cc = getIntensityMatrix("rsc/results/undistorted_frames/cc", obj_grid, x_resolution=X_RES,
                                     y_resolution=Y_RES)
 
     path_idm_lc = getLightDirectionMatrix("rsc/results/undistorted_frames/lc", obj_grid, x_resolution=X_RES,
                                           y_resolution=Y_RES)
 
-# TODO: syncronization
-# TODO: intensity/gradient sampling
+    samplingPlotCCLC("rsc/results/matrix/cc/", "rsc/results/matrix/lc/")

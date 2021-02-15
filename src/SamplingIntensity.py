@@ -84,7 +84,7 @@ def getIntensityMatrix(path, obj_grid, x_resolution, y_resolution):
             i_m = calculateIntensityMatrix(frame, tr[0], tr[1], obj_grid, k)
 
         # save results
-        cv.imwrite(PATH_SAMPLING_INTENSITY + "/%d.jpg" % i, getImageIntensity(i_m, x_resolution, y_resolution))
-        saveMatrix(PATH_MATRIX_INTENSITY, i_m, i)
-
+        img = getImageIntensity(i_m, x_resolution, y_resolution)
+        cv.imwrite(PATH_SAMPLING_INTENSITY + "/%d.jpg" % i, img)
+        saveMatrix(PATH_MATRIX_INTENSITY, img, i)
     return PATH_MATRIX_INTENSITY
