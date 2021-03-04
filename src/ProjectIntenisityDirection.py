@@ -29,15 +29,17 @@ def samplingPlotCCLC(path_cc, path_lc):
 
 
 def pixelSpecific(path_cc, path_lc):
-    x = 100
-    y = 249
+    x1 = 90
+    x2 = 145
+    y1 = 220
+    y2 = 221
 
     frame = cv.imread("rsc/results/sampling/cc/0.jpg")
-    for x in range(90, 145):
-        for y in range(200, 250):
+    for x in range(x1, x2):
+        for y in range(y1, y2):
             frame[y, x] = 0
-    cv.imshow("CC_LC", frame)
-    cv.waitKey(1000)
+    cv.imwrite(PATH_PIXELS[:-7]+ "0-frame.jpg",frame)
+    cv.destroyAllWindows()
 
     matrix_cc = []
     matrix_lc = []
@@ -45,29 +47,24 @@ def pixelSpecific(path_cc, path_lc):
     matrix_cc.extend(loadMatrix(path_cc))
     matrix_lc.extend(loadMatrix(path_lc))
 
+    # get points
     pixel_cc = np.zeros((1, len(matrix_cc)), dtype=np.float32)
     pixel_lc = np.zeros((2, len(matrix_lc)), dtype=np.float32)
+    i = 0
 
-    for pixel in tqdm(range(90 * 200, 145 * 250, 100), desc="Learning RTI"):
-        img = drawUnitCircle()
-        for n_frame in range(len(matrix_lc)):
-            if matrix_lc[n_frame].size > 3:
-                i_pixel = matrix_cc[n_frame].flatten()[pixel]
-                lc_pixel = matrix_lc[n_frame][:, pixel]
-                pixel_cc[:, n_frame] = i_pixel
-                pixel_lc[:, n_frame] = lc_pixel
-                new_img = getLightDirection(matrix_lc[n_frame][:, pixel], i_pixel)
-            img = cv.add(img, new_img)
-        cv.imwrite(PATH_PIXELS + str(pixel) + ".jpg", img)
-        interpolateSampling(pixel_lc[:, :201], pixel_cc[:, :201], pixel)
+    for x in tqdm(range(x1, x2), desc="Sampling"):
+        for y in range(y1, y2):
+            img = drawUnitCircle()
+            for n_frame in range(len(matrix_lc)):
+                if matrix_lc[n_frame].size > 3:
+                    reshaped_matrix_lc = np.reshape(matrix_lc[n_frame], (2, 640, 480))
+                    i_pixel = (matrix_cc[n_frame])[x, y]
+                    lc_pixel = reshaped_matrix_lc[:, x, y]
+                    pixel_cc[:, n_frame] = i_pixel
+                    pixel_lc[:, n_frame] = lc_pixel
+                    new_img = getLightDirection(lc_pixel, i_pixel)
+                img = cv.add(img, new_img)
+            cv.imwrite(PATH_PIXELS + str(i) + ".jpg", img)
+            interpolateSampling(pixel_lc[:, :201], pixel_cc[:, :201], i)
+            i = i + 1
 
-    frame = cv.imread("rsc/results/sampling/cc/0.jpg")
-    frame[y, x] = 0
-    cv.imshow("CC_LC", frame)
-    cv.waitKey(100000)
-
-    img = rescaleFrame(img, 4)
-    cv.imshow("CC_LC", img)
-    cv.waitKey(100000)
-
-    cv.destroyAllWindows()
