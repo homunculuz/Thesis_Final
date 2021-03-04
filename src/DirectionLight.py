@@ -20,7 +20,7 @@ def calculateLightDirectionMatrix(rotation, translation, obj_grid):
     return ld_normalized_m
 
 
-def getLightDirection(matrix, n=200, intensity_light=255):
+def drawUnitCircle(n=200):
     img = np.zeros((n, n), np.uint8)
     # draw localize
     val = round(n / 2)
@@ -29,11 +29,20 @@ def getLightDirection(matrix, n=200, intensity_light=255):
     cv.circle(img, (val, val), val, 255, 1)
     cv.line(img, (0, val), (2 * val, val), 255, 1)
     cv.line(img, (val, 0), (val, 2 * val), 255, 1)
+    return img
 
-    matrix = val + matrix * 100
+
+def getLightDirection(matrix, intensity_light=255, n=200):
+    img = drawUnitCircle(n)
+    matrix = n / 2 + matrix * 100
     # project all x,y coordinates of illumination direction in the 2D plane
     matrix = matrix.astype(int)
-    img[matrix[1, :].tolist(), matrix[0, :].tolist()] = intensity_light
+    if matrix.size <= 2:
+        x, y = matrix
+        img[y, x] = intensity_light
+    else:
+        img[matrix[1, :].tolist(), matrix[0, :].tolist()] = intensity_light
+
     return img
 
 

@@ -30,6 +30,10 @@ def resetResults(reset_frames):
     removeDirectory("rsc/results/debug_directory/poses")
     createDirectoryStructure("debug_directory/poses")
 
+    removeDirectory("rsc/results/learn")
+    os.mkdir("rsc/results/learn/sampling")
+    os.mkdir("rsc/results/learn/predictions")
+
 
 def createDirectoryStructure(name):
     os.mkdir("rsc/results/" + name)
@@ -56,9 +60,9 @@ def saveMatrix(path, matrix, i):
     saveNP(matrix, p % i)
 
 
-def loadMatrix(path,label):
+def loadMatrix(path):
     list_matrix = []
-    for i in tqdm(range(len(os.listdir(path))), desc=label):
+    for i in range(len(os.listdir(path))):
         matrix_path = (path + "/%d.npy") % i
         list_matrix.append(loadNP(matrix_path))
     return list_matrix

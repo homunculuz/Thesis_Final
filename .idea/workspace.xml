@@ -38,7 +38,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$USER_HOME$/Desktop/RTI-Thesis" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -72,6 +72,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/Calibration.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Interpolation" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Thesis_Final" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/Interpolation.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -149,6 +171,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.Interpolation" />
         <item itemvalue="Python.ProjectIntenisityDirection" />
         <item itemvalue="Python.Calibration" />
         <item itemvalue="Python.SamplingIntensity" />
@@ -179,7 +202,19 @@
       <workItem from="1612275996701" duration="2697000" />
       <workItem from="1612287346348" duration="1141000" />
       <workItem from="1612963246400" duration="2574000" />
-      <workItem from="1613387751322" duration="7625000" />
+      <workItem from="1613387751322" duration="16779000" />
+      <workItem from="1613466858382" duration="5068000" />
+      <workItem from="1613473319203" duration="6428000" />
+      <workItem from="1613558734176" duration="15504000" />
+      <workItem from="1613597488839" duration="12807000" />
+      <workItem from="1613748122669" duration="4161000" />
+      <workItem from="1614092561444" duration="2063000" />
+      <workItem from="1614095703900" duration="672000" />
+      <workItem from="1614096390042" duration="13069000" />
+      <workItem from="1614586052895" duration="5000" />
+      <workItem from="1614614630455" duration="4959000" />
+      <workItem from="1614696154927" duration="2394000" />
+      <workItem from="1614851416643" duration="2855000" />
     </task>
     <servers />
   </component>
@@ -207,51 +242,60 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1611180134788" />
-    <state width="1493" height="217" key="GridCell.Tab.0.bottom" timestamp="1613398150550">
+    <state width="1493" height="213" key="GridCell.Tab.0.bottom" timestamp="1614854133241">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1877" height="223" key="GridCell.Tab.0.bottom/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1611273993206" />
-    <state width="1493" height="217" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1613398150550" />
-    <state width="1493" height="217" key="GridCell.Tab.0.center" timestamp="1613398150550">
+    <state width="1493" height="213" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1614854133241" />
+    <state width="1493" height="213" key="GridCell.Tab.0.center" timestamp="1614854133241">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1877" height="223" key="GridCell.Tab.0.center/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1611273993206" />
-    <state width="1493" height="217" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1613398150550" />
-    <state width="1493" height="217" key="GridCell.Tab.0.left" timestamp="1613398150550">
+    <state width="1493" height="213" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1614854133241" />
+    <state width="1493" height="213" key="GridCell.Tab.0.left" timestamp="1614854133240">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1877" height="223" key="GridCell.Tab.0.left/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1611273993206" />
-    <state width="1493" height="217" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1613398150550" />
-    <state width="1493" height="217" key="GridCell.Tab.0.right" timestamp="1613398150550">
+    <state width="1493" height="213" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1614854133240" />
+    <state width="1493" height="213" key="GridCell.Tab.0.right" timestamp="1614854133241">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1877" height="223" key="GridCell.Tab.0.right/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1611273993206" />
-    <state width="1493" height="217" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1613398150550" />
-    <state width="1493" height="277" key="GridCell.Tab.1.bottom" timestamp="1613397123027">
+    <state width="1493" height="213" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1614854133241" />
+    <state width="1493" height="277" key="GridCell.Tab.1.bottom" timestamp="1614669225913">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="277" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1613397123027" />
-    <state width="1493" height="277" key="GridCell.Tab.1.center" timestamp="1613397123027">
+    <state width="1493" height="277" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1614669225913" />
+    <state width="1493" height="277" key="GridCell.Tab.1.center" timestamp="1614669225913">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="277" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1613397123027" />
-    <state width="1493" height="277" key="GridCell.Tab.1.left" timestamp="1613397123027">
+    <state width="1493" height="277" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1614669225913" />
+    <state width="1493" height="277" key="GridCell.Tab.1.left" timestamp="1614669225913">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="277" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1613397123027" />
-    <state width="1493" height="277" key="GridCell.Tab.1.right" timestamp="1613397123027">
+    <state width="1493" height="277" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1614669225913" />
+    <state width="1493" height="277" key="GridCell.Tab.1.right" timestamp="1614669225913">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="277" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1613397123027" />
-    <state x="277" y="77" key="SettingsEditor" timestamp="1613387764402">
+    <state width="1493" height="277" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1614669225913" />
+    <state x="277" y="77" key="SettingsEditor" timestamp="1614851446277">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="277" y="77" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1613387764402" />
+    <state x="277" y="77" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1614851446277" />
+    <state x="586" y="346" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1613470459098">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="586" y="346" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.864@0.0.1536.864" timestamp="1613470459098" />
+    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1614260882959">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1614260882959" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Thesis_Final$Calibration.coverage" NAME="Calibration Coverage Results" MODIFIED="1611336002093" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/Thesis_Final$ProjectIntenisityDirection.coverage" NAME="ProjectIntenisityDirection Coverage Results" MODIFIED="1613398112442" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/Thesis_Final$main.coverage" NAME="main Coverage Results" MODIFIED="1613398115328" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Thesis_Final$main.coverage" NAME="main Coverage Results" MODIFIED="1614854133214" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Thesis_Final$Interpolation.coverage" NAME="Interpolation Coverage Results" MODIFIED="1614255093744" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/Thesis_Final$SamplingIntensity.coverage" NAME="SamplingIntensity Coverage Results" MODIFIED="1611181214314" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
 </project>

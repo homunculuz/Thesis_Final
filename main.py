@@ -1,5 +1,5 @@
 from src.DirectionLight import getLightDirectionMatrix
-from src.ProjectIntenisityDirection import samplingPlotCCLC
+from src.ProjectIntenisityDirection import samplingPlotCCLC, pixelSpecific
 from src.SamplingIntensity import getIntensityMatrix, getObjPoints
 from src.Calibration import undistortedVideo
 from src.Synchronize import callSynchronization
@@ -20,23 +20,25 @@ def getUndistortedFramesVideo(path_video, is_approximate, shift, num_skip=50):
     return u_path_frames
 
 
-def getSynchroShift():
-    path, shift = callSynchronization(PATH_CENTER_CAMERA, PATH_ILLUMINATION_CAMERA)
+def getSynchroShift(path_cc, path_lc):
+    path, shift = callSynchronization(path_cc, path_lc)
     shift_video_1 = 0
     shift_video_2 = 0
-
-    if path == PATH_CENTER_CAMERA:
+    if path == path_cc:
         shift_video_1 = shift
     else:
         shift_video_2 = shift
-
     return shift_video_1, shift_video_2
 
 
 if __name__ == '__main__':
+    """
+    
     resetResults(reset_frames=True)
 
-    shift_1, shift_2 = getSynchroShift()
+    shift_1, shift_2 = getSynchroShift(PATH_CENTER_CAMERA, PATH_ILLUMINATION_CAMERA)
+
+    print(shift_1, shift_2)
 
     # get synchronized frames
     u_path_frames_cc = getUndistortedFramesVideo(path_video=PATH_CENTER_CAMERA, is_approximate=False, shift=shift_1,
@@ -52,5 +54,8 @@ if __name__ == '__main__':
 
     path_idm_lc = getLightDirectionMatrix("rsc/results/undistorted_frames/lc", obj_grid, x_resolution=X_RES,
                                           y_resolution=Y_RES)
+    """
 
-    samplingPlotCCLC("rsc/results/matrix/cc/", "rsc/results/matrix/lc/")
+    pixelSpecific("rsc/results/matrix/cc/", "rsc/results/matrix/lc/")
+
+    # scipy-interpolate

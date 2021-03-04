@@ -49,7 +49,7 @@ def undistortedVideo(path_video, is_approximate, shift=0, skip=10, show_frames=F
     i = 0
     count = -1
 
-    shift_count = round(shift) * fps
+    shift_count = round(shift * fps)
 
     print("fps: ", fps, " frames to shift: ", shift_count)
 
