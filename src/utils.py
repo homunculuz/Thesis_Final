@@ -6,6 +6,7 @@ import cv2 as cv
 import numpy as np
 from tqdm import tqdm
 
+
 def resetResults(reset_frames):
     if reset_frames:
         # reset undistorted_frames
@@ -20,7 +21,6 @@ def resetResults(reset_frames):
     removeDirectory("rsc/results/sampling")
     createDirectoryStructure("sampling")
     os.mkdir("rsc/results/sampling" + "/cc_lc")
-
 
     # reset matrix
     removeDirectory("rsc/results/matrix")
@@ -39,6 +39,14 @@ def createDirectoryStructure(name):
     os.mkdir("rsc/results/" + name)
     os.mkdir("rsc/results/" + name + "/cc")
     os.mkdir("rsc/results/" + name + "/lc")
+
+
+def resetLearn():
+    removeDirectory("rsc/results/learn")
+    os.mkdir("rsc/results/learn")
+    os.mkdir("rsc/results/learn/sampling")
+    os.mkdir("rsc/results/learn/predictions")
+    os.mkdir("rsc/results/learn/pixels")
 
 
 def removeDirectory(path):

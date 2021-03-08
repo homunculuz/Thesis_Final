@@ -30,10 +30,10 @@ def samplingPlotCCLC(path_cc, path_lc):
 
 
 def pixelSpecific(path_cc, path_lc):
-    x1 = 90
-    x2 = 145
-    y1 = 200
-    y2 = 221
+    x1 = 100
+    x2 = 155
+    y1 = 160
+    y2 = 210
 
     frame = cv.imread("rsc/results/sampling/cc/0.jpg")
     for x in range(x1, x2):
@@ -48,8 +48,7 @@ def pixelSpecific(path_cc, path_lc):
     matrix_cc.extend(loadMatrix(path_cc))
     matrix_lc.extend(loadMatrix(path_lc))
 
-    # get points
-    i = 0
+    interpolation_tensor = np.zeros((64, 64, x2 - x1, y2 - y1), dtype=np.float32)
 
     for x in tqdm(range(x1, x2), desc="Sampling"):
         for y in range(y1, y2):
@@ -65,13 +64,18 @@ def pixelSpecific(path_cc, path_lc):
                     pixel_lc[:, n_frame] = lc_pixel
                     new_img = getLightDirection(lc_pixel, i_pixel)
                 img = cv.add(img, new_img)
+            # same numbers of elements
             pixel_cc = pixel_cc[:, :pixel_lc.shape[-1]]
-            good_indicies = pixel_cc.flatten() != 0
-            pixel_cc = pixel_cc[:, good_indicies]
-            pixel_lc = pixel_lc[:, good_indicies]
+
+            # remove bad indices
+            good_indices = pixel_cc.flatten() != 0
+            pixel_cc = pixel_cc[:, good_indices]
+            pixel_lc = pixel_lc[:, good_indices]
 
             # plt.hist(pixel_cc.flatten())
             # plt.show()
-            cv.imwrite(PATH_PIXELS + str(i) + ".jpg", rescaleFrame(img, 4))
-            interpolateSampling(pixel_lc[:, :201], pixel_cc[:, :201], i)
-            i = i + 1
+
+            cv.imwrite(PATH_PIXELS + str([x, y]) + ".jpg", rescaleFrame(img, 4))
+            interpolation_tensor[:, :, x % x1, y % y1] = interpolateSampling(pixel_lc[:, :201], pixel_cc[:, :201],
+                                                                             [x, y])
+    return interpolation_tensor

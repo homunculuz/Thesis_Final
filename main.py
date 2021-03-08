@@ -1,9 +1,10 @@
 from src.DirectionLight import getLightDirectionMatrix
+from src.Interpolation import creteImageRTI
 from src.ProjectIntenisityDirection import samplingPlotCCLC, pixelSpecific
 from src.SamplingIntensity import getIntensityMatrix, getObjPoints
 from src.Calibration import undistortedVideo
 from src.Synchronize import callSynchronization
-from src.utils import getFileNameFromPath, resetResults
+from src.utils import getFileNameFromPath, resetResults, resetLearn, loadNP, saveNP
 
 PATH_CENTER_CAMERA = "rsc/videos/center_camera/cc1.mp4"
 PATH_ILLUMINATION_CAMERA = "rsc/videos/light_camera/lc1.mp4"
@@ -54,8 +55,14 @@ if __name__ == '__main__':
 
     path_idm_lc = getLightDirectionMatrix("rsc/results/undistorted_frames/lc", obj_grid, x_resolution=X_RES,
                                           y_resolution=Y_RES)
+
+
+    
+    
     """
 
-    pixelSpecific("rsc/results/matrix/cc/", "rsc/results/matrix/lc/")
-
-    # scipy-interpolate
+    resetLearn()
+    tensor = pixelSpecific("rsc/results/matrix/cc/", "rsc/results/matrix/lc/")
+    saveNP(tensor, "rsc/results/learn/tensor.npy")
+    tensor = loadNP("rsc/results/learn/tensor.npy")
+    creteImageRTI(tensor)
