@@ -30,10 +30,10 @@ def samplingPlotCCLC(path_cc, path_lc):
 
 
 def pixelSpecific(path_cc, path_lc):
-    x1 = 100
-    x2 = 155
-    y1 = 155
-    y2 = 210
+    x1 = 95
+    x2 = 145
+    y1 = 200
+    y2 = 255
 
     frame = cv.imread("rsc/results/sampling/cc/0.jpg")
     i_coords, j_coords = np.meshgrid(np.arange(x1, x2, 1), np.arange(y1, y2, 1), sparse=True)
@@ -58,7 +58,7 @@ def pixelSpecific(path_cc, path_lc):
             for n_frame in range(len(matrix_lc)):
                 if matrix_lc[n_frame].size > 3:
                     reshaped_matrix_lc = np.reshape(matrix_lc[n_frame], (2, 640, 480))
-                    i_pixel = (matrix_cc[n_frame])[ y, x]
+                    i_pixel = (matrix_cc[n_frame])[y, x]
                     lc_pixel = reshaped_matrix_lc[:, y, x]
                     pixel_cc[:, n_frame] = i_pixel
                     pixel_lc[:, n_frame] = lc_pixel
