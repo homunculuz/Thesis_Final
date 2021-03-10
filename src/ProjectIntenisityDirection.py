@@ -29,10 +29,10 @@ def samplingPlotCCLC(path_cc, path_lc):
         cv.imwrite(PATH_CC_LC + "/%d.jpg" % i, img)
 
 
-def pixelSpecific(path_cc, path_lc):
-    x1 = 95
-    x2 = 145
-    y1 = 200
+def pixelSpecific(path_cc, path_lc,resolution=64):
+    x1 = 90
+    x2 = 150
+    y1 = 195
     y2 = 255
 
     frame = cv.imread("rsc/results/sampling/cc/0.jpg")
@@ -48,7 +48,7 @@ def pixelSpecific(path_cc, path_lc):
     matrix_cc.extend(loadMatrix(path_cc))
     matrix_lc.extend(loadMatrix(path_lc))
 
-    interpolation_tensor = np.zeros((64, 64, x2 - x1, y2 - y1), dtype=np.float32)
+    interpolation_tensor = np.zeros((resolution, resolution, x2 - x1, y2 - y1), dtype=np.float32)
 
     for x in tqdm(range(x1, x2), desc="Sampling"):
         for y in range(y1, y2):

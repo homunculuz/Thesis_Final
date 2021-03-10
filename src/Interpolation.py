@@ -10,7 +10,7 @@ SAMPLING_PATH = "rsc/results/learn/sampling"
 PREDICTIONS_PATH = "rsc/results/learn/predictions"
 
 
-def interpolateSampling(xy, z, pixel, save_plot=False):
+def interpolateSampling(xy, z, pixel, resolution=64, save_plot=False):
     if save_plot:
         plt.figure()
         plt.title('Learn Pixel #' + str(pixel))
@@ -19,7 +19,7 @@ def interpolateSampling(xy, z, pixel, save_plot=False):
         plt.savefig(SAMPLING_PATH + "/" + str(pixel) + '.png')
 
     rbf = scipy.interpolate.Rbf(xy[0, :], xy[1, :], z, smooth=0.01, function='linear')
-    XX, YY = np.meshgrid(np.linspace(-1, 1, 64), np.linspace(-1, 1, 64))
+    XX, YY = np.meshgrid(np.linspace(-1, 1, resolution), np.linspace(-1, 1, resolution))
 
     z_interpolation = rbf(XX, YY)
 
@@ -30,6 +30,9 @@ def interpolateSampling(xy, z, pixel, save_plot=False):
         plt.colorbar()
         plt.scatter(x=xy[0, :], y=xy[1, :], c=z, vmin=0, vmax=255)
         plt.savefig(PREDICTIONS_PATH + "/" + str(pixel) + '.png')
+
+    z_interpolation[z_interpolation > 255] = 255
+    z_interpolation[z_interpolation < 0] = 0
 
     return z_interpolation
 
@@ -66,3 +69,5 @@ def creteImageRTI(tensor):
 
 
 right_clicks = [50, 50]
+TENSOR = None
+img = None
