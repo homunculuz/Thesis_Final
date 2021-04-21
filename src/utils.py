@@ -30,9 +30,9 @@ def resetResults(reset_frames):
     removeDirectory("rsc/results/debug_directory/poses")
     createDirectoryStructure("debug_directory/poses")
 
-    removeDirectory("rsc/results/learn")
-    os.mkdir("rsc/results/learn/sampling")
-    os.mkdir("rsc/results/learn/predictions")
+    #removeDirectory("rsc/results/learn")
+    #os.mkdir("rsc/results/learn/sampling")
+    #os.mkdir("rsc/results/learn/predictions")
 
 
 def createDirectoryStructure(name):

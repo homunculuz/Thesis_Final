@@ -31,9 +31,9 @@ def samplingPlotCCLC(path_cc, path_lc):
 
 def pixelSpecific(path_cc, path_lc,resolution=64):
     x1 = 90
-    x2 = 150
+    x2 = 180
     y1 = 195
-    y2 = 255
+    y2 = 340
 
     frame = cv.imread("rsc/results/sampling/cc/0.jpg")
     i_coords, j_coords = np.meshgrid(np.arange(x1, x2, 1), np.arange(y1, y2, 1), sparse=True)

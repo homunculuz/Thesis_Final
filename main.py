@@ -35,7 +35,6 @@ def getSynchroShift(path_cc, path_lc):
 
 if __name__ == '__main__':
     """
-    
     resetResults(reset_frames=True)
 
     shift_1, shift_2 = getSynchroShift(PATH_CENTER_CAMERA, PATH_ILLUMINATION_CAMERA)
@@ -57,9 +56,8 @@ if __name__ == '__main__':
     path_idm_lc = getLightDirectionMatrix("rsc/results/undistorted_frames/lc", obj_grid, x_resolution=X_RES,
                                           y_resolution=Y_RES)
     """
-
-    # resetLearn()
-    # tensor = pixelSpecific("rsc/results/matrix/cc/", "rsc/results/matrix/lc/")
-    # saveNP(tensor, "rsc/results/learn/tensor.npy")
+    #resetLearn()
+    #tensor = pixelSpecific("rsc/results/matrix/cc/", "rsc/results/matrix/lc/")
+    #saveNP(tensor, "rsc/results/learn/tensor.npy")
     tensor = loadNP("rsc/results/learn/tensor.npy")
     creteImageRTI(tensor)

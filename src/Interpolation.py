@@ -48,24 +48,24 @@ def creteImageRTI(tensor):
     _, _, n_x, n_y = tensor.shape
     img = np.zeros((n_y, n_x), np.uint8)
     img_circle = drawUnitCircle(n=64)
+    while True:
+        cv.namedWindow("RTI img")
+        cv.setMouseCallback("RTI img", on_EVENT_LBUTTONDOWN)
+        cv.imshow("RTI img", rescaleFrame(img_circle, 4))
 
-    cv.namedWindow("RTI img")
-    cv.setMouseCallback("RTI img", on_EVENT_LBUTTONDOWN)
-    cv.imshow("RTI img", rescaleFrame(img_circle, 4))
+        # wait for a key to be pressed to exit
+        cv.waitKey(0)
 
-    # wait for a key to be pressed to exit
-    cv.waitKey(0)
+        mouse_x, mouse_y = int(right_clicks[0] / 4), int(right_clicks[1] / 4)
+        print("x: ", mouse_x, " y: ", mouse_y)
 
-    mouse_x, mouse_y = int(right_clicks[0] / 4), int(right_clicks[1] / 4)
-    print("x: ", mouse_x, " y: ", mouse_y)
+        for x in range(n_x):
+            for y in range(n_y):
+                img[y, x] = round(tensor[mouse_x, mouse_y, x, y])
 
-    for x in range(n_x):
-        for y in range(n_y):
-            img[y, x] = round(tensor[mouse_x, mouse_y, x, y])
-
-    cv.imshow("RTI img", rescaleFrame(img, 4))
-    # Listen to mouse events
-    cv.waitKey(0)
+        cv.imshow("RTI img", rescaleFrame(img, 4))
+        # Listen to mouse events
+        cv.waitKey(0)
 
 
 right_clicks = [50, 50]
